@@ -11,42 +11,40 @@ import java.util.concurrent.Semaphore;
  * @author mahmoud hossam
  */
 public class Resource {
-    
+
     private String content;
-    public Resource(String content){
-        this.content=content;
+    private final Switch readSwitch = new Switch();
+    private final Semaphore turn = new Semaphore(1);
+    private final Semaphore readRoom = new Semaphore(1);
+    public Resource(String content) {
+        this.content = content;
     }
-    
-    private final Switch readSwitch=new Switch();
-    private final Semaphore turn=new Semaphore(1);
-    private final Semaphore readRoom=new Semaphore(1);
-    
-  
-    public String Read(Long id) throws InterruptedException{
+    public String Read(Long id) throws InterruptedException {
+
         turn.acquire();
+
         readSwitch.lock(readRoom);
         turn.release();
-        try{
-            
-            content="id: "+id+" content:"+content;
-        }finally{
+        String currentContent = null;
+        try {
+            currentContent = "id: " + id + " content:" + content;
+        } finally {
             readSwitch.unlock(readRoom);
         }
-        return content;
+        return currentContent;
     }
 
     public String write(long id, String data) throws InterruptedException {
-          turn.acquire();
+        turn.acquire();
         readRoom.acquire();
-        try{
-          this.content="after write:  id:"+id+" content:"+data;
-        }finally{
+        try {
+            this.content = "after write:  id:" + id + " content:" + data;
+        } finally {
             turn.release();
             readRoom.release();
         }
         return content;
-    
+
     }
-    
-    
+
 }

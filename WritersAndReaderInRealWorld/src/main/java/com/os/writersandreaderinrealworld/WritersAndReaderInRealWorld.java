@@ -23,7 +23,8 @@ public class WritersAndReaderInRealWorld {
        
         final Resource resource=new Resource("No comment");
         for(int i=0;i<numberOfReaders;i++){
-            new Thread(new Reader(i,resource)).start();
+               Long id=Long.valueOf(i);
+            new Thread(new Reader(id,resource)).start();
         }
         for(int i=0;i<numberOfWriter;i++){
             Long id=Long.valueOf(i);

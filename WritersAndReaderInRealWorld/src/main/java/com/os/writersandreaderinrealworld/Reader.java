@@ -17,17 +17,11 @@ public class Reader implements Runnable{
         this.id=id;
         this.resource=resource;
     }
-
-    public Reader(long id, Resource resource) {
-        this.id=id;
-        this.resource=resource;
-    }
-
     @Override
     public void run() {
         
         try{
-            System.out.println(resource.Read(id)); ;
+            System.out.println(resource.Read(id)); 
         }catch(Exception ex){
          ex.printStackTrace();
         }

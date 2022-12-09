@@ -13,15 +13,13 @@ public class Writer implements Runnable{
 
     private final Long id;
     private final String newContent;
-    private final Resource resource;
-    
+    private final Resource resource;   
     public Writer(Long id,String newContent, Resource resource){
         this.id=id;
         this.newContent=newContent;
         this.resource=resource;
         
-    }
-    
+    }   
     @Override
     public void run() {
     

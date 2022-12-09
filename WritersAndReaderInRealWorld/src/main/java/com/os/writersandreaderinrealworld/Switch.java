@@ -13,7 +13,7 @@ import java.util.concurrent.Semaphore;
 public class Switch {
     
     private int counter=0;
-    private final Semaphore mutex=new Semaphore(1);
+    private final Semaphore mutex=new Semaphore(5);
     
     public void lock(Semaphore semaphore) throws InterruptedException{
         mutex.acquire();
